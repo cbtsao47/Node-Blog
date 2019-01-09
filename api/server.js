@@ -2,7 +2,6 @@ const express = require("express");
 const morgan = require("morgan");
 const helmet = require("helmet");
 const cors = require("cors");
-
 const server = express();
 
 // database
@@ -32,7 +31,7 @@ function upperCase(req, res, next) {
   next();
 }
 
-// routes
+// routes - users
 server.get("/api/users", async (req, res) => {
   try {
     const userList = await userDb.get();
@@ -107,4 +106,5 @@ server.put("/api/users/:id", upperCase, async (req, res) => {
   }
 });
 
+// routes - posts
 module.exports = server;
