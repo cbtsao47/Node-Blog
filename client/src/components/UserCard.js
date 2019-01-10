@@ -1,21 +1,34 @@
 import React from "react";
 import { Col, Card } from "react-materialize";
 import { Route } from "react-router";
+import { Link } from "react-router-dom";
 import Post from "./Post";
+import styled from "styled-components";
+
+const StyledCard = styled.div`
+  border: 5px solid #4c7aa3;
+  margin: 1rem;
+  width: 30%;
+  padding: 2rem;
+  text-align: center;
+  background-color: #c2e3ff;
+`;
+const StyledName = styled.h1`
+  font-size: 3rem;
+`;
 
 const UserCard = props => {
   const { name, id } = props.user;
   const { userPosts } = props;
   return (
-    <Col s={12} m={6} l={4}>
-      <Card className="#26a69a teal lighten-1">
-        <h1 className="#fafafa grey-text lighten-55">{name}</h1>
-        <Route
-          path={`/${id}/posts`}
-          render={props => <Post userPosts={userPosts} />}
-        />
-      </Card>
-    </Col>
+    <StyledCard className="user-card">
+      <StyledName>{name}</StyledName>
+      <Link to={`/${id}/posts`}>View Quotes</Link>
+      <Route
+        path={`/${id}/posts`}
+        render={props => <Post userPosts={userPosts} />}
+      />
+    </StyledCard>
   );
 };
 export default UserCard;

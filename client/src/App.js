@@ -1,10 +1,15 @@
 import React, { Component } from "react";
 import axios from "axios";
 import UserCard from "./components/UserCard";
-import { Row } from "react-materialize";
+import styled from "styled-components";
+
+const StyledApp = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  flex-wrap: wrap;
+`;
 class App extends Component {
-  // constructor() {
-  // }
   state = {
     users: [],
     posts: []
@@ -23,16 +28,14 @@ class App extends Component {
   }
   render() {
     return (
-      <div className="App">
-        <Row>
-          {this.state.users.map(user => {
-            let userPosts = this.state.posts.filter(
-              post => post.userId === user.id
-            );
-            return <UserCard user={user} userPosts={userPosts} />;
-          })}
-        </Row>
-      </div>
+      <StyledApp>
+        {this.state.users.map(user => {
+          let userPosts = this.state.posts.filter(
+            post => post.userId === user.id
+          );
+          return <UserCard user={user} userPosts={userPosts} />;
+        })}
+      </StyledApp>
     );
   }
 }
