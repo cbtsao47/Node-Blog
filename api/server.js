@@ -19,7 +19,7 @@ function upperCase(req, res, next) {
   const user = req.body;
   const { name } = user;
   if (name.length > 128) {
-    res.status(400).json({
+    return res.status(400).json({
       message: "Name is too long. Please shorten it to under 128 characters"
     });
   } else if (name) {
@@ -30,7 +30,7 @@ function upperCase(req, res, next) {
     const joined = upperCased.join(" ");
     req.body.name = joined;
   } else {
-    res.status(400).json({ message: "Please include user name" });
+    return res.status(400).json({ message: "Please include user name" });
   }
   next();
 }
@@ -50,7 +50,7 @@ server.get("/api/users/:id", async (req, res) => {
   const { id } = req.params;
   try {
     const user = await userDb.get(id);
-    console.log("bt3", user);
+
     if (!user) {
       res.status(404).json({ message: "The User was not found" });
     } else {
@@ -126,8 +126,7 @@ server.get("/api/posts/:id", async (req, res) => {
   const { id } = req.params;
   try {
     const post = await postDb.get(id);
-    console.log("bt3", post);
-    if (!post) {
+    if (!post.tags) {
       res.status(404).json({ message: "The post was not found" });
     } else {
       res.json(post);
@@ -160,7 +159,6 @@ server.delete("/api/posts/:id", async (req, res) => {
   const { id } = req.params;
   try {
     const post = await postDb.get(id);
-    console.log("post", post);
     if (!post) {
       res.status(404).json({ message: "The post does not exist." });
     } else {
