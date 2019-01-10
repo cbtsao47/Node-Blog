@@ -50,7 +50,7 @@ route.get("/:id/posts", async (req, res) => {
   }
 });
 
-route.post("", formatName, async (req, res) => {
+route.post("/", formatName, async (req, res) => {
   const user = req.body;
 
   try {
