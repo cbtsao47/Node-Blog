@@ -1,8 +1,6 @@
 const express = require("express");
-const morgan = require("morgan");
-const helmet = require("helmet");
-const cors = require("cors");
 const server = express();
+const configureMiddleware = require("../config/middleware");
 
 // database
 const userDb = require("../data/helpers/userDb");
@@ -10,31 +8,8 @@ const postDb = require("../data/helpers/postDb");
 const tagDb = require("../data/helpers/tagDb");
 
 // middleware - global
-server.use(express.json());
-server.use(morgan("short"));
-server.use(helmet());
-server.use(cors());
-
-function upperCase(req, res, next) {
-  const user = req.body;
-  const { name } = user;
-  if (name.length > 128) {
-    return res.status(400).json({
-      message: "Name is too long. Please shorten it to under 128 characters"
-    });
-  } else if (name) {
-    const arr = name.split(" ");
-    const upperCased = arr.map(
-      item => item[0].toUpperCase() + item.slice(1).toLowerCase()
-    );
-    const joined = upperCased.join(" ");
-    req.body.name = joined;
-  } else {
-    return res.status(400).json({ message: "Please include user name" });
-  }
-  next();
-}
-
+configureMiddleware(server);
+const upperCase = require("../common/sharedMiddleware");
 // routes - users
 
 server.get("/api/users", async (req, res) => {
