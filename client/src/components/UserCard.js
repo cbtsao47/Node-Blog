@@ -1,5 +1,4 @@
 import React from "react";
-import { Col, Card } from "react-materialize";
 import { Route } from "react-router";
 import { Link } from "react-router-dom";
 import Post from "./Post";
@@ -26,7 +25,7 @@ const UserCard = props => {
       <Link to={`/${id}/posts`}>View Quotes</Link>
       <Route
         path={`/${id}/posts`}
-        render={props => <Post userPosts={userPosts} />}
+        render={(props, i) => <Post key={i} userPosts={userPosts} />}
       />
     </StyledCard>
   );

@@ -5,8 +5,8 @@ const Post = props => {
 
   return (
     <div>
-      {userPosts.map(post => (
-        <Quote quote={post.text} />
+      {userPosts.map((post, i) => (
+        <Quote key={i} quote={post.text} />
       ))}
     </div>
   );

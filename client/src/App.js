@@ -29,11 +29,11 @@ class App extends Component {
   render() {
     return (
       <StyledApp>
-        {this.state.users.map(user => {
+        {this.state.users.map((user, i) => {
           let userPosts = this.state.posts.filter(
             post => post.userId === user.id
           );
-          return <UserCard user={user} userPosts={userPosts} />;
+          return <UserCard key={i} user={user} userPosts={userPosts} />;
         })}
       </StyledApp>
     );
