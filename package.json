@@ -1,33 +1,33 @@
 {
-  "name": "Node-Blog",
+  "name": "webapi-blog",
   "version": "1.0.0",
-  "description": "- Building RESTful APIs.\r - Performing CRUD Operations on Multiple Resources.\r - Configuring CORS.\r - Writing Custom Middleware.\r - Using Express Routers to Modularize Application.",
+  "description": "Web API Blog Project",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node index.js",
     "server": "nodemon index.js"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/cbtsao47/Node-Blog.git"
+    "url": "git+https://github.com/LambdaSchool/Node-Blog.git"
   },
-  "keywords": [],
-  "author": "",
+  "keywords": [
+    "node",
+    "express",
+    "blog",
+    "api"
+  ],
+  "author": "Lambda School",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/cbtsao47/Node-Blog/issues"
+    "url": "https://github.com/LambdaSchool/Node-Blog/issues"
   },
-  "homepage": "https://github.com/cbtsao47/Node-Blog#readme",
+  "homepage": "https://github.com/LambdaSchool/Node-Blog#readme",
   "dependencies": {
-    "cors": "^2.8.5",
-    "express": "^4.16.4",
-    "helmet": "^3.15.0",
     "knex": "^0.16.3",
-    "morgan": "^1.9.1",
-    "sqlite3": "^4.0.4"
+    "sqlite3": "^4.0.6"
   },
   "devDependencies": {
-    "nodemon": "^1.18.9"
+    "knex-cleaner": "^1.1.4",
+    "nodemon": "^1.18.10"
   }
 }
