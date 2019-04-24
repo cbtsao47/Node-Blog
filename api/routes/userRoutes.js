@@ -1,37 +1,52 @@
 const express = require("express");
 const route = express.Router();
 const userDb = require("../../data/helpers/userDb");
+const upperCaseName = require("../../common/upperCase");
+const errHandler = require("../../common/errHandler");
 
-route.get("/", async (req, res) => {
+route.get("/", async (req, res, next) => {
   try {
     let users = await userDb.get();
     res.status(200).json(users);
   } catch (err) {
-    res.status(500).json({ err });
+    next(err, res);
   }
 });
 
-route.get("/:id", async (req, res) => {
+route.get("/:id", async (req, res, next) => {
   try {
     const { id } = req.params;
     const user = await userDb.getById(id);
-    res.status(200).json(user);
+
+    if (user) {
+      res.status(200).json(user);
+    } else {
+      res.status(404).json({ err: "User Not Found" });
+    }
   } catch (err) {
-    res.status(500).json({ err });
+    next(err, res);
   }
 });
-
-route.post("/", async (req, res) => {
+route.get("/:id/posts", async (req, res) => {
+  try {
+    const { id } = req.params;
+    const posts = await userDb.getUserPosts(id);
+    res.status(200).json(posts);
+  } catch (err) {
+    next(err, res);
+  }
+});
+route.post("/", upperCaseName, async (req, res) => {
   try {
     const user = req.body;
     const createdUser = await userDb.insert(user);
     res.status(201).json(createdUser);
   } catch (err) {
-    res.status(500).json({ err });
+    next(err, res);
   }
 });
 
-route.put("/:id", async (req, res) => {
+route.put("/:id", upperCaseName, async (req, res) => {
   try {
     const { id } = req.params;
     const user = req.body;
@@ -39,7 +54,7 @@ route.put("/:id", async (req, res) => {
     const updatedUser = await userDb.getById(id);
     res.status(202).json(updatedUser);
   } catch (err) {
-    res.status(500).json({ err });
+    next(err, res);
   }
 });
 
@@ -49,7 +64,7 @@ route.delete("/:id", async (req, res) => {
     const deleteStatus = await userDb.remove(id);
     res.status(202).json({ deleteStatus });
   } catch (err) {
-    res.status(500).json({ err });
+    next(err, res);
   }
 });
 

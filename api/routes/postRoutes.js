@@ -7,7 +7,7 @@ route.get("/", async (req, res) => {
     let posts = await postDb.get();
     res.status(200).json(posts);
   } catch (err) {
-    res.status(500).json({ err });
+    next(err, res);
   }
 });
 
@@ -17,7 +17,7 @@ route.get("/:id", async (req, res) => {
     const post = await postDb.getById(id);
     res.status(200).json(post);
   } catch (err) {
-    res.status(500).json({ err });
+    next(err, res);
   }
 });
 
@@ -27,7 +27,7 @@ route.post("/", async (req, res) => {
     const createdPost = await postDb.insert(post);
     res.status(201).json(createdPost);
   } catch (err) {
-    res.status(500).json({ err });
+    next(err, res);
   }
 });
 
@@ -39,7 +39,7 @@ route.put("/:id", async (req, res) => {
     const updatedPost = await postDb.getById(id);
     res.status(202).json(updatedPost);
   } catch (err) {
-    res.status(500).json({ err });
+    next(err, res);
   }
 });
 
@@ -49,7 +49,7 @@ route.delete("/:id", async (req, res) => {
     const deleteStatus = await postDb.remove(id);
     res.status(202).json({ deleteStatus });
   } catch (err) {
-    res.status(500).json({ err });
+    next(err, res);
   }
 });
 module.exports = route;
