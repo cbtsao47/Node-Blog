@@ -1,10 +1,9 @@
 const express = require("express");
-const config = require("../config/serverConfig");
-const userRoute = require("./routes/userRoutes");
-const postRoute = require("./routes/postRoutes");
 const server = express();
-const errHandler = require("../common/errHandler");
-config(server);
-server.use("/api/posts", postRoute, errHandler);
-server.use("/api/users", userRoute, errHandler);
+const postRoute = require("./routes/postRoute");
+const userRoute = require("./routes/userRoute");
+const serverConfig = require("../config/serverConfig");
+serverConfig(server);
+server.use("/posts", postRoute);
+server.use("/users", userRoute);
 module.exports = server;
